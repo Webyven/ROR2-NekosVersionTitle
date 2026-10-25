@@ -2,7 +2,7 @@
 	"name": "NekosVersionTitle",
 	"author": "Weby",
 	"version_number": "1.0.0",
-	"website_url": "https://github.com/Webyven/nekos-version-title",
+	"website_url": "https://github.com/Webyven/ROR2-NekosVersionTitle",
 	"description": "Neko's version main menu title",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.2108",

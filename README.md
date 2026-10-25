@@ -26,3 +26,11 @@ The logo is embedded in the assembly from [`NekosVersionTitle/Resources/Logo.png
 
 The [`Thunderstore`](Thunderstore) folder contains the package files (`manifest.json`, `icon.png`, `README.md`, `CHANGELOG.md`).
 Copy the built DLL into `Thunderstore/plugins/` and zip the contents of the folder to create the package.
+
+## License
+
+The code is licensed under the [MIT License](LICENSE).
+
+The logo (`NekosVersionTitle/Resources/Logo.png`) is not covered by the MIT License.
+It is a modified version of the Risk of Rain 2 logo, which belongs to Gearbox Software and Hopoo Games.
+This is an unofficial fan project and is not affiliated with or endorsed by them.
