@@ -95,7 +95,7 @@ namespace NekosVersionTitle
 		}
 
 		// Clones the build label so the version text keeps the game's font and style,
-		// and places it above the build label so it doesn't overlap the credits text below.
+		// and places it under the build label and credits text.
 		private void AddVersionLabel(RoR2.UI.SteamBuildIdLabel self)
 		{
 			try
@@ -118,14 +118,48 @@ namespace NekosVersionTitle
 					DestroyImmediate(languageController);
 				}
 
-				copy.GetComponent<TMP_Text>().text = versionText.Value;
-				copy.transform.SetSiblingIndex(self.transform.GetSiblingIndex());
+				var copyText = copy.GetComponent<TMP_Text>();
+				copyText.text = versionText.Value;
 
-				// Without a layout group the clone sits on top of the original, so move it up one label height.
-				if (self.transform.parent.GetComponent<LayoutGroup>() == null)
+				if (self.transform.parent.GetComponent<LayoutGroup>() != null)
 				{
-					((RectTransform)copy.transform).anchoredPosition += new Vector2(0f, label.preferredHeight);
+					copy.transform.SetAsLastSibling();
+					return;
 				}
+
+				// Without a layout group the clone sits on top of the original, so move it
+				// below the build label and any text stacked right under it (the credits line).
+				var labelCorners = new Vector3[4];
+				label.rectTransform.GetWorldCorners(labelCorners);
+				float left = labelCorners[0].x, right = labelCorners[2].x, top = labelCorners[1].y;
+				float bottom = labelCorners[0].y;
+				float lineHeight = top - bottom;
+
+				var texts = self.GetComponentInParent<Canvas>().GetComponentsInChildren<TMP_Text>();
+				var corners = new Vector3[4];
+				bool moved;
+				do
+				{
+					moved = false;
+					foreach (var text in texts)
+					{
+						if (text == label || text == copyText || !text.isActiveAndEnabled || string.IsNullOrWhiteSpace(text.text))
+						{
+							continue;
+						}
+
+						text.rectTransform.GetWorldCorners(corners);
+						bool overlapsHorizontally = corners[0].x < right && corners[2].x > left;
+						bool startsAtBottom = Mathf.Abs(corners[1].y - bottom) <= lineHeight * 0.5f;
+						if (overlapsHorizontally && startsAtBottom && corners[0].y < bottom - 1f)
+						{
+							bottom = corners[0].y;
+							moved = true;
+						}
+					}
+				} while (moved);
+
+				copy.transform.position += new Vector3(0f, bottom - top, 0f);
 			}
 			catch (Exception e)
 			{
