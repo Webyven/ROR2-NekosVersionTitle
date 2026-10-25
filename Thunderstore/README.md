@@ -6,7 +6,9 @@ Client-side only.
 
 ## Configuration
 
-Edit `BepInEx/config/Weby.NekosVersionTitle.cfg` (created after the first launch):
+If [RiskOfOptions](https://thunderstore.io/package/Rune580/Risk_Of_Options/) is installed, every option can be changed from the in-game settings menu, under Mod Options, and applies immediately.
+
+Otherwise, edit `BepInEx/config/Weby.NekosVersionTitle.cfg` (created after the first launch):
 
 | Section | Option | Default | Description |
 | --- | --- | --- | --- |
