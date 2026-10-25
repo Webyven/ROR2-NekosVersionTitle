@@ -1,7 +1,7 @@
 ﻿{
 	"name": "NekosVersionTitle",
 	"author": "Weby",
-	"version_number": "1.0.0",
+	"version_number": "1.0.1",
 	"website_url": "https://github.com/Webyven/ROR2-NekosVersionTitle",
 	"description": "Neko's version main menu title",
 	"dependencies": [
